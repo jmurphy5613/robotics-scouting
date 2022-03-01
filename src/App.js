@@ -4,7 +4,7 @@ import CentralComputer from './pages/centralcomputer';
 import Scout from './pages/scout';
 import { ThemeProvider } from '@material-ui/core';
 import theme from './helpers/theme';
-import TeamProfile from './pages/teamProfile';
+import TeamProfile from './pages/team-profile';
 
 function App() {
   return (

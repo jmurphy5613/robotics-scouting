@@ -1,5 +1,6 @@
 import { IconButton, makeStyles } from "@material-ui/core";
 import { Button } from '@material-ui/core';
+import { Input } from '@material-ui/core';
 import Counter from "../components/counter"
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
@@ -30,9 +31,6 @@ const useStyles = makeStyles( theme => ({
     popupMain: {
         width: 'auto',
         height: 'auto',
-        marginTop: '19em',
-        padding: '10px',
-        borderRadius: '20px',
     },
     generator: {
         backgroundColor: '#afafaf',
@@ -80,7 +78,7 @@ let jsonQR;
 
 function createJson(p_lowGoal, p_highGoal){
     data = {
-        'teamName': 0,
+        'teamNumber': 0,
         'lowGoal': p_lowGoal,
         'highGoal': p_highGoal
     }
@@ -139,10 +137,7 @@ const Scout = () => {
                         </IconButton>
                         <div className={classes.popupMain}>
                             <QRCode id="codeQR" value={jsonQR} title="jordanoutput"/>
-                            <Button onClick={popupShow}>
-                                close
-                            </Button>
-                            <Button onClick={saveQR}>
+                            <Button onClick={saveQR} className={classes.pngDown}>
                                 download as png
                             </Button>
                         </div>
