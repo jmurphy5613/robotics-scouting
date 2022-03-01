@@ -1,6 +1,6 @@
-import { IconButton, makeStyles } from "@material-ui/core";
+import { IconButton, makeStyles, TextField } from "@material-ui/core";
 import { Button } from '@material-ui/core';
-import { Input } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Counter from "../components/counter"
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
@@ -20,7 +20,7 @@ const useStyles = makeStyles( theme => ({
         backgroundColor: theme.palette.primary.main
     },
     popupBackground: {
-        backgroundColor: '#000000b3',
+        backgroundColor: '#ffffffb3',
         height: '100vh',
         width: '100vw',
         display: 'flex',
@@ -29,7 +29,6 @@ const useStyles = makeStyles( theme => ({
 
     },
     popupMain: {
-        width: 'auto',
         height: 'auto',
     },
     generator: {
@@ -63,6 +62,17 @@ const useStyles = makeStyles( theme => ({
     },
     getButtonContainer: {
         marginTop: '8em',
+        display: 'flex',
+        justifyContent: 'center',
+        alignitems: 'center',
+        width: '100%'
+    },
+    robotNumber: {
+        marginTop: '4em',
+        backgroundColor: '#727',
+        borderRadius: '4px 4px 0px 0px',
+    },
+    robotNumberContainer: {
         display: 'flex',
         justifyContent: 'center',
         alignitems: 'center',
@@ -115,6 +125,13 @@ const Scout = () => {
     return (
         <div className={classes.root}>
             <HomeButton />
+            <div className={classes.robotNumberContainer}>
+                <Box
+                    component="form"
+                >
+                    <TextField color="secondary" className={classes.robotNumber} variant="filled" label="Team Number" focused/>
+                </Box>
+            </div>
             <div>
                 <Counter title="Low Scores" setter={setLowGoal}/>
                 <Counter title="High Scores" setter={setHighGoal}/>

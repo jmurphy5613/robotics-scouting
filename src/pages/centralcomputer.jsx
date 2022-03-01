@@ -57,11 +57,11 @@ const CentralComputer = () => {
         //get all items from local storage
         const teams = JSON.parse(localStorage.getItem('teamList'));
 
-        let teamData = [];
-        for(let i = 0; i < teams.length; i++) {
-            let currentTeamData = JSON.parse(localStorage.getItem(`${teams[i]}`));
-            teamData.push(currentTeamData);
-        }
+        // let teamData = [];
+        // for(let i = 0; i < teams.length(); i++) {
+        //     let currentTeamData = JSON.parse(localStorage.getItem(`${teams[i]}`));
+        //     teamData.push(currentTeamData);
+        // }
         setTeamData(teamData);
     
     }, []);
