@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import Counter from "../components/counter"
 import { useState } from 'react';
+import Select from 'react-select'
 import CloseIcon from '@mui/icons-material/Close';
 import Popup from 'reactjs-popup';
 import HomeButton from "../components/homebutton";
@@ -11,6 +12,7 @@ import QRCode from "react-qr-code";
 //remove backgruoursnd, close icon x in top right 
 //download should be green button aligned center image below
 //add support for yup
+//conditoional rendreriong
 //react select, rungs for climing
 
 const useStyles = makeStyles( theme => ({
