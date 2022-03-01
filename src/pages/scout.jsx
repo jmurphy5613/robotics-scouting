@@ -14,6 +14,11 @@ import QRCode from "react-qr-code";
 //add support for yup
 //conditoional rendreriong
 //react select, rungs for climing
+const options = [
+    { value: 'bar0', label: 'Bar0' },
+    { value: 'bar1', label: 'Bar1' },
+    { value: 'bar2', label: 'Bar2' }
+]
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -38,7 +43,6 @@ const useStyles = makeStyles( theme => ({
         '&:hover': {
             backgroundColor: '#efefef'
         },
-        marginTop: '1em',
         fontSize: '20px',
     },
     exit: {
@@ -70,7 +74,8 @@ const useStyles = makeStyles( theme => ({
         width: '100%'
     },
     robotNumber: {
-        marginTop: '4em',
+        marginTop: '2em',
+        width: '10em',
         backgroundColor: '#727',
         borderRadius: '4px 4px 0px 0px',
     },
@@ -79,6 +84,10 @@ const useStyles = makeStyles( theme => ({
         justifyContent: 'center',
         alignitems: 'center',
         width: '100%'
+    },
+    barSelect: {
+        width: '10em',
+        marginTop: '1em'
     }
 }));
 
@@ -132,6 +141,7 @@ const Scout = () => {
                     component="form"
                 >
                     <TextField color="secondary" className={classes.robotNumber} variant="filled" label="Team Number" focused/>
+                    <Select className={classes.barSelect} options={options} />
                 </Box>
             </div>
             <div>
