@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import HomeButton from "../components/homebutton";
+import BackButton from "../components/backbutton";
 import { useEffect, useState } from "react";
 import QrCodePopup from "../components/qrcodepopup";
 
@@ -62,14 +62,14 @@ const CentralComputer = () => {
         //     let currentTeamData = JSON.parse(localStorage.getItem(`${teams[i]}`));
         //     teamData.push(currentTeamData);
         // }
-        setTeamData(teamData);
+        setTeamData(teams);
     
     }, []);
 
 
     return (
         <div className={classes.root}>
-            <HomeButton />
+            <BackButton title={'Home'} lastPage={'/'} />
             <QrCodePopup qrData={qrData} setQrData={setQrData} />
 
             <div className={classes.mainContent}>

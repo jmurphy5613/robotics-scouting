@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Select from 'react-select'
 import CloseIcon from '@mui/icons-material/Close';
 import Popup from 'reactjs-popup';
-import HomeButton from "../components/homebutton";
+import BackButton from "../components/backbutton";
 import QRCode from "react-qr-code";
 //TODO: add team name support in json and elsewhere
 //remove backgruoursnd, close icon x in top right 
@@ -46,9 +46,10 @@ const useStyles = makeStyles( theme => ({
         fontSize: '20px',
     },
     exit: {
-        color: '#fff',
+        color: '#000000',
         position: "absolute",
         right: '0',
+        top: '0'
     },
     pngDown: {
         backgroundColor: '#00faa0',

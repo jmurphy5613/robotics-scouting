@@ -15,7 +15,7 @@ function App() {
               <Route path='/' element={ <Home/> } exact />
               <Route path='/central-computer' element={ <CentralComputer /> } exact />
               <Route path='/scout' element={ <Scout /> } exact />
-              <Route path='/team-profile/:teamId' element={ <TeamProfile /> } />
+              <Route path='/team-profile/:teamId' element={ <TeamProfile /> } exact />
           </Routes>
         </ThemeProvider>
       </HashRouter>

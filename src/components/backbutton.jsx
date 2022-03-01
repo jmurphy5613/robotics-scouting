@@ -14,13 +14,13 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const HomeButton = () => {
+const BackButton = (props) => {
 
     const classes = useStyles();
 
     return (
-        <Button className={classes.topLeft} onClick={e => window.location = '/'} startIcon={<ArrowBackIosIcon />} >Home</Button>
+        <Button className={classes.topLeft} onClick={e => window.location = `${props.lastPage}`} startIcon={<ArrowBackIosIcon />} >{props.title}</Button>
     )
 }
 
-export default HomeButton;
+export default BackButton;
