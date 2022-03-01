@@ -131,15 +131,17 @@ const Scout = () => {
                 }
             >
                 {popupShow =>
-                    <div className={classes.popupBackground}>
+                    <div>
                         <IconButton onClick={popupShow} className={classes.exit}>
                             <CloseIcon />
                         </IconButton>
-                        <div className={classes.popupMain}>
-                            <QRCode id="codeQR" value={jsonQR} title="jordanoutput"/>
-                            <Button onClick={saveQR} className={classes.pngDown}>
-                                download as png
-                            </Button>
+                        <div className={classes.popupBackground}>
+                            <div className={classes.popupMain}>
+                                <QRCode id="codeQR" value={jsonQR} title="jordanoutput"/>
+                                <Button onClick={saveQR} className={classes.pngDown}>
+                                    download as png
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 }
