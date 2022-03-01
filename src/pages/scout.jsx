@@ -116,8 +116,8 @@ const Scout = () => {
         <div className={classes.root}>
             <HomeButton />
             <div>
-            <Counter title="Low Scores" setter={setLowGoal}/>
-            <Counter title="High Scores" setter={setHighGoal}/>
+                <Counter title="Low Scores" setter={setLowGoal}/>
+                <Counter title="High Scores" setter={setHighGoal}/>
             </div>
             <Popup
                 modal
@@ -137,7 +137,7 @@ const Scout = () => {
                         </IconButton>
                         <div className={classes.popupBackground}>
                             <div className={classes.popupMain}>
-                                <QRCode id="codeQR" value={jsonQR} title="jordanoutput"/>
+                                <QRCode id="codeQR" value={jsonQR} level="H" title="jordanoutput"/>
                                 <Button onClick={saveQR} className={classes.pngDown}>
                                     download as png
                                 </Button>
