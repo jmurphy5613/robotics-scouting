@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         textAlign: 'center',
-        marginTop: '8rem',
+        marginTop: '1rem',
         marginLeft: '1em',
         marginRight: '1em',
         fontFamily: 'medium',

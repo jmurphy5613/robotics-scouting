@@ -1,7 +1,9 @@
-import { IconButton, makeStyles } from "@material-ui/core";
+import { IconButton, makeStyles, TextField } from "@material-ui/core";
 import { Button } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Counter from "../components/counter"
 import { useState } from 'react';
+import Select from 'react-select'
 import CloseIcon from '@mui/icons-material/Close';
 import Popup from 'reactjs-popup';
 import BackButton from "../components/backbutton";
@@ -11,7 +13,13 @@ import '../fonts.css';
 //remove backgruoursnd, close icon x in top right 
 //download should be green button aligned center image below
 //add support for yup
+//conditoional rendreriong
 //react select, rungs for climing
+const options = [
+    { value: 'bar0', label: 'Bar0' },
+    { value: 'bar1', label: 'Bar1' },
+    { value: 'bar2', label: 'Bar2' }
+]
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -30,19 +38,12 @@ const useStyles = makeStyles( theme => ({
     },
     popupMain: {
         height: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '10px',
-        borderRadius: '20px',
-        justifyContent: 'center',
-        alignItems: 'center'
     },
     generator: {
         backgroundColor: '#afafaf',
         '&:hover': {
             backgroundColor: '#efefef'
         },
-        marginTop: '1em',
         fontSize: '20px',
         fontFamily: 'medium'
     },
@@ -74,6 +75,22 @@ const useStyles = makeStyles( theme => ({
         justifyContent: 'center',
         alignitems: 'center',
         width: '100%'
+    },
+    robotNumber: {
+        marginTop: '2em',
+        width: '10em',
+        backgroundColor: '#727',
+        borderRadius: '4px 4px 0px 0px',
+    },
+    robotNumberContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignitems: 'center',
+        width: '100%'
+    },
+    barSelect: {
+        width: '10em',
+        marginTop: '1em'
     }
 }));
 
@@ -85,7 +102,7 @@ let jsonQR;
 
 function createJson(p_lowGoal, p_highGoal){
     data = {
-        'teamName': 0,
+        'teamNumber': 0,
         'lowGoal': p_lowGoal,
         'highGoal': p_highGoal
     }
@@ -121,10 +138,18 @@ const Scout = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <BackButton title={'Home'} lastPage={'/'} />
+            <HomeButton />
+            <div className={classes.robotNumberContainer}>
+                <Box
+                    component="form"
+                >
+                    <TextField color="secondary" className={classes.robotNumber} variant="filled" label="Team Number" focused/>
+                    <Select className={classes.barSelect} options={options} />
+                </Box>
+            </div>
             <div>
-            <Counter title="Low Scores" setter={setLowGoal}/>
-            <Counter title="High Scores" setter={setHighGoal}/>
+                <Counter title="Low Scores" setter={setLowGoal}/>
+                <Counter title="High Scores" setter={setHighGoal}/>
             </div>
             <Popup
                 modal
@@ -138,16 +163,17 @@ const Scout = () => {
                 }
             >
                 {popupShow =>
-                    <div className={classes.popupBackground}>
+                    <div>
                         <IconButton onClick={popupShow} className={classes.exit}>
                             <CloseIcon />
                         </IconButton>
-                        <div className={classes.popupMain}>
-                            <QRCode id="codeQR" value={jsonQR} title="jordanoutput"/>
-
-                            <Button onClick={saveQR}>
-                                download as png
-                            </Button>
+                        <div className={classes.popupBackground}>
+                            <div className={classes.popupMain}>
+                                <QRCode id="codeQR" value={jsonQR} level="H" title="jordanoutput"/>
+                                <Button onClick={saveQR} className={classes.pngDown}>
+                                    download as png
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 }
