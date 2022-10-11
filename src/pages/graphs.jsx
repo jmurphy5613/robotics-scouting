@@ -5,8 +5,10 @@
 
 
 import BackButton from "../components/backbutton";
+import Select from "react-select"
 import { LineChart, Line, Legend, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts'; // FOUND ONE
 import '../fonts.css';
+import { useEffect } from "react";
 import { ButtonBase, makeStyles } from "@material-ui/core";
 import { Typography, Button } from "@material-ui/core";
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -78,6 +80,37 @@ const DataGraphs = () => {
 
     const [lines, setLines] = useState([]);
     const [data, setData] = useState(null);
+
+    let selectConfig = [
+        { value: "HighGoalAuto", label: "High Goal Auto" },
+        { value: "LowGoalAuto", label: "Low Goal Auto" },
+        { value: "HighGoal", label: "High Goal" },
+        { value: "LowGoal", label: "Low Goal" },
+        { value: "RungClimedTo", label: "Rung Climed To" }
+    ]
+
+    let teamSelect = [ ]; //gets loaded later in use effect
+
+    useEffect( () => {
+        let arr = JSON.parse(localStorage.getItem("teamList"));
+
+        if (arr == null) {
+            console.log("NO DATA");
+            teamSelect.push( { value: "Empty", label: "No Team Data" } );
+            return;
+        }
+
+        for (let i = 0; i < arr.length; i++) {
+            let data = JSON.parse(localStorage.getItem(arr[i]));
+
+            if (data == null) {
+                console.log("ERR AT " + arr[i].toString() );
+                continue;
+            }
+
+            teamSelect.push( { value: arr[i].toString(), label: arr[i].toString() } );
+        }
+    });
 
     /*let data = [
         {
@@ -226,25 +259,20 @@ const DataGraphs = () => {
         <div className={classes.root}>
             <BackButton title={'Home'} lastPage={'/'} />
             <div className={classes.mainContent}>
-                <Typography variant="h2" className={classes.sectionTitle}>txt</Typography>
                 <LineChart width={730} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="5 3" />
                     <XAxis dataKey="xAxis" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-
                     {lines}
-
-                    {/*<button onClick={e => makeGraphData(testData)} title="gaming" />*/}
-
-                    
-
-                    {/*<Line type="monotone" dataKey="a" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="b" stroke="#82ca9d" />*/}
                 </LineChart>
 
-                <Button title="summon lines" className={classes.buttonMain} onClick={ e => makeGraphData(testData) }>summon lines</Button>
+                <div className={classes.options}>
+                    <Button title="summon lines" className={classes.buttonMain} onClick={ e => makeGraphData(testData) }>generate</Button>
+                    <Select options={selectConfig} isMulti={ true } isSearchable={ true }/>
+                    <Select options={teamSelect} isMulti={ true } isSearchable={ true } />
+                </div>
             </div>
         </div>
     )
