@@ -46,6 +46,7 @@ const Leaderboard = () => {
 
     useEffect(() => {
         let teams =  JSON.parse(localStorage.getItem('teamList'));
+        if(!teams) return;
         teams.forEach(element => {
             let teamData = JSON.parse(localStorage.getItem(`${element}`));
             let gamesPlayed = teamData.length;
