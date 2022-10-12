@@ -9,12 +9,12 @@ import LeaderboardButton from "../components/leaderboardbutton";
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '100vw',
-        height: '200vh',
+        width: '100%',
+        height: '100vh',
         backgroundColor: theme.palette.primary.main,
     },
     navbarButtons: {
-        width: '100vw',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
         paddingTop: '2rem'
@@ -26,8 +26,8 @@ const useStyles = makeStyles(theme => ({
     },
     popupBackground: {
         backgroundColor: '#000000b3',
-        height: '100vh',
-        width: '100vw'
+        height: '100%',
+        width: '100%'
     },
     searchField: {
         width: '20rem',
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
         margin: '3rem'
     },
     mainContent: {
-        width: '100vw',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
     },

@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
     },
     mainContent: {
         width: '100vw',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -227,7 +228,7 @@ const DataGraphs = () => {
             <BackButton title={'Home'} lastPage={'/'} />
             <div className={classes.mainContent}>
                 <Typography variant="h2" className={classes.sectionTitle}>txt</Typography>
-                <LineChart width={730} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <LineChart width={730} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="5 3" />
                     <XAxis dataKey="xAxis" />
                     <YAxis />
