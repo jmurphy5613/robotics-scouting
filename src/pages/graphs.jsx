@@ -81,6 +81,10 @@ const DataGraphs = () => {
 
     const [lines, setLines] = useState([]);
     const [data, setData] = useState(null);
+    const [teamSelect, setTeamSelect] = useState([]);
+    const [configList, setConfigList] = useState([]);
+    const [teamList, setTeamList] = useState([]);
+
 
     let selectConfig = [
         { value: "highGoalAuto", label: "High Goal Auto" },
@@ -90,32 +94,34 @@ const DataGraphs = () => {
         { value: "rungClimedTo", label: "Rung Climed To" }
     ]
 
-    let teamSelect = [ ]; //gets loaded later in use effect
+    //let teamSelect = [ ]; //gets loaded later in use effect
 
-    let configList = [ ];
+    //let configList = [ ];
 
-    let teamList = [ ];
+    //let teamList = [ ];
 
     useEffect( () => {
         let arr = JSON.parse(localStorage.getItem("teamList"));
 
         if (arr == null) {
             console.log("NO DATA");
-            teamSelect.push( { value: "Empty", label: "No Team Data" } );
+            setTeamSelect( { value: "Empty", label: "No Team Data" } );
             return;
         }
+
+        //setTeamSelect(JSON.parse(localStorag.getItem(arr[i])))
 
         for (let i = 0; i < arr.length; i++) {
             let data = JSON.parse(localStorage.getItem(arr[i]));
 
             if (data == null) {
-                console.log("ERR AT " + arr[i].toString() );
+                console.log( "ERR AT " + arr[i].toString() );
                 continue;
             }
 
             teamSelect.push( { value: arr[i].toString(), label: arr[i].toString() } );
         }
-    });
+    }, []);
 
     /*let data = [
         {
@@ -187,19 +193,22 @@ const DataGraphs = () => {
 
     const updateConfig = (e) => {
         console.log(e);
-        configList = [ ];
+        setConfigList([]);
+        setConfigList(e.map((element, index) => { return element.value }));
         for (let i = 0; i < e.length; i++) {
             console.log(e[i].value);
-            configList.push(e[i].value);
+            //configList.push(e[i].value);
         }
     }
 
     const updateTeams = (e) => {
         console.log(e);
-        teamList = [ ];
+        setTeamList([]);
+        //setTeamList(e);
+        setTeamList(e.map((element, index) => { return element.value }));
         for (let i = 0; i < e.length; i++) {
             console.log(e[i].value);
-            teamList.push(e[i].value);
+            //teamList.push(e[i].value);
         }
     }
 
