@@ -84,8 +84,8 @@ const DataGraphs = () => {
     let selectConfig = [
         { value: "highGoalAuto", label: "High Goal Auto" },
         { value: "lowGoalAuto", label: "Low Goal Auto" },
-        { value: "highGoal", label: "High Goal" },
-        { value: "lowGoal", label: "Low Goal" },
+        { value: "highGoalOperated", label: "High Goal" },
+        { value: "lowGoalOperated", label: "Low Goal" },
         { value: "rungClimedTo", label: "Rung Climed To" }
     ]
 
