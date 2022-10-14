@@ -61,7 +61,7 @@ const Leaderboard = () => {
 
             teamData.forEach(game => {
                 teamId = game.teamId;
-                HighGoalAutoTotal += game.highGoalx;
+                HighGoalAutoTotal += game.highGoalAuto;
                 LowGoalAutoTotal += game.lowGoalAuto;
                 HighGoalTeleopTotal += game.highGoalOperated;
                 LowGoalTeleopTotal += game.lowGoalOperated;

@@ -5,6 +5,7 @@ import QrCodePopup from "../components/qrcodepopup";
 import ClearStorage from "../components/clearstorage";
 import TeamGrid from "../components/team-grid";
 import LeaderboardButton from "../components/leaderboardbutton";
+import DataFetchButton from "../components/data-fetch-button";
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +48,7 @@ const useStyles = makeStyles(theme => ({
         bottom: '3rem',
         left: '50%',
         transform: 'translateX(-50%)',
-        width: '37vw',
+        width: '45vw',
         display: 'flex',
         justifyContent: 'space-between'
     }
@@ -72,6 +73,7 @@ const CentralComputer = () => {
                 <LeaderboardButton />
                 <ClearStorage />
                 <QrCodePopup qrData={qrData} setQrData={setQrData} />
+                <DataFetchButton />
             </div>
 
             <div className={classes.mainContent}>
