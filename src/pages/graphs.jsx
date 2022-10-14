@@ -83,14 +83,18 @@ const DataGraphs = () => {
     const [data, setData] = useState(null);
 
     let selectConfig = [
-        { value: "HighGoalAuto", label: "High Goal Auto" },
-        { value: "LowGoalAuto", label: "Low Goal Auto" },
-        { value: "HighGoal", label: "High Goal" },
-        { value: "LowGoal", label: "Low Goal" },
-        { value: "RungClimedTo", label: "Rung Climed To" }
+        { value: "highGoalAuto", label: "High Goal Auto" },
+        { value: "lowGoalAuto", label: "Low Goal Auto" },
+        { value: "highGoalOperated", label: "High Goal" },
+        { value: "lowGoalOperated", label: "Low Goal" },
+        { value: "rungClimedTo", label: "Rung Climed To" }
     ]
 
     let teamSelect = [ ]; //gets loaded later in use effect
+
+    let configList = [ ];
+
+    let teamList = [ ];
 
     useEffect( () => {
         let arr = JSON.parse(localStorage.getItem("teamList"));
@@ -137,6 +141,67 @@ const DataGraphs = () => {
     ];*/
 
     const classes = useStyles();
+
+    const updateGraph = () => {
+        console.log(teamList);
+
+        let jsonData = `{
+            "maxLength": ${JSON.parse(localStorage.getItem(teamList[0])).length},
+            "dataList": [
+        `;
+            
+        for (let k = 0; k < configList.length; k++) {
+            console.log(k);
+            for (let i = 0; i < teamList.length; i++) {
+                let team = JSON.parse(localStorage.getItem(teamList[i]));
+                console.log(localStorage.getItem(teamList[i]));
+
+                if (team === null) {
+                    console.log("INVALID TEAM: " + teamList[i]);
+                    continue;
+                }
+
+                jsonData += `{ 
+                    "name": "${teamList[i] + " - " + configList[k]}",
+                    "data": [
+                `;
+                
+                for (let j = 0; j < team.length; j++) {
+                    jsonData +=` ${team[j][configList[k]]}${ (j === team.length - 1) ? "" : ", " }`
+                }
+
+                jsonData += ` ]
+                    }${ (k === configList.length - 1 && i === teamList.length - 1) ? "" : ", " }
+                `;
+            }
+        }
+
+        jsonData += ` ]
+        }
+        `;
+
+        console.log(jsonData);
+
+        makeGraphData(JSON.parse(jsonData));
+    }
+
+    const updateConfig = (e) => {
+        console.log(e);
+        configList = [ ];
+        for (let i = 0; i < e.length; i++) {
+            console.log(e[i].value);
+            configList.push(e[i].value);
+        }
+    }
+
+    const updateTeams = (e) => {
+        console.log(e);
+        teamList = [ ];
+        for (let i = 0; i < e.length; i++) {
+            console.log(e[i].value);
+            teamList.push(e[i].value);
+        }
+    }
 
     const makeGraphData = (rawData) => {
         try {
@@ -270,9 +335,9 @@ const DataGraphs = () => {
                 </LineChart>
 
                 <div className={classes.options}>
-                    <Button title="summon lines" className={classes.buttonMain} onClick={ e => makeGraphData(testData) }>generate</Button>
-                    <Select options={selectConfig} isMulti={ true } isSearchable={ true }/>
-                    <Select options={teamSelect} isMulti={ true } isSearchable={ true } />
+                    <Button title="Apply to Graph" className={classes.buttonMain} onClick={ e => updateGraph() }>generate</Button>
+                    <Select options={selectConfig} isMulti={ true } isSearchable={ true } onChange={ e => { updateConfig(e) }}/>
+                    <Select options={teamSelect} isMulti={ true } isSearchable={ true } onChange={e => { updateTeams(e) }} />
                 </div>
             </div>
         </div>
