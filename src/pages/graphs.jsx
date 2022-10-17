@@ -6,7 +6,7 @@
 
 import BackButton from "../components/backbutton";
 import Select from "react-select"
-import { LineChart, Line, Legend, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts'; // FOUND ONE
+import { LineChart, BarChart, Bar, Line, Legend, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts'; // FOUND ONE
 import '../fonts.css';
 import { useEffect } from "react";
 import { ButtonBase, makeStyles } from "@material-ui/core";
@@ -14,6 +14,7 @@ import { Typography, Button } from "@material-ui/core";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
 import { useState } from "react";
+import { keys } from "@material-ui/core/styles/createBreakpoints";
 
 
 const useStyles = makeStyles(theme => ({
@@ -84,6 +85,8 @@ const DataGraphs = () => {
     const [teamSelect, setTeamSelect] = useState([]);
     const [configList, setConfigList] = useState([]);
     const [teamList, setTeamList] = useState([]);
+    const [bars, setBars] = useState([]);
+    const [allTeams, setAllTeams] = useState(false);
 
 
     let selectConfig = [
@@ -147,6 +150,71 @@ const DataGraphs = () => {
     ];*/
 
     const classes = useStyles();
+
+    const updateBarGraph = () => {
+        let jsonData = `{
+            "maxLength": 1000,
+            "dataList": [
+        `;
+
+        for (let i = 0; i < configList.length; i++) {
+            console.log(allTeams);
+            if (allTeams) {
+
+                for (let k = 0; k < teamSelect.length; k++) {
+                    let team = JSON.parse(localStorage.getItem(teamSelect[k].value));
+                    console.log(team);
+
+                    if (team === null) continue;
+
+                    let avg = 0;
+                    console.log(configList[i]);
+                    for (let j = 0; j < team.length; j++) {
+                        avg += team[j][configList[i]];
+                    }
+
+                    avg = avg / team.length;
+
+                    jsonData += `{
+                        "name": "${teamSelect[k].value} - ${configList[i]}",
+                        "data": [${avg}]
+                    }${ (k === teamSelect.length - 1 && i === configList.length - 1) ? "" : ", " }
+                    `;
+                }
+
+                continue;
+            }
+
+            for(let k = 0; k < teamList.length; k++) {
+                let team = JSON.parse(localStorage.getItem(teamList[k]));
+
+                if (team === null) {
+                    continue;
+                }
+
+                let avg = 0;
+                for (let j = 0; j < team.length; j++) {
+                    avg += team[j][configList[i]];
+                }
+
+                avg = avg / team.length;
+
+                jsonData += `{
+                    "name": "${teamList[k]} - ${configList[i]}",
+                    "data": [${avg}]
+                }${ (k === teamList.length - 1 && i === configList.length - 1) ? "" : ", " }
+                `;
+
+            }
+        }
+
+        jsonData += `]}`;
+
+        console.log(jsonData);
+
+        makeGraphData(JSON.parse(jsonData));
+
+    }
 
     const updateGraph = () => {
         console.log(teamList);
@@ -219,7 +287,7 @@ const DataGraphs = () => {
             "#0f0",
             "#00f",
             "#f0f",
-            "#ff0",
+            "#f40",
             "#0ff",
             "#fff",
             "#000",
@@ -236,7 +304,11 @@ const DataGraphs = () => {
             "#f8a",
             "#8fb",
             "#0fa",
-            "#f0a"
+            "#f0a",
+            "#aaa",
+            "#fae",
+            "#aef",
+            "#afe",
         ];
 
         let lines = [];
@@ -260,15 +332,15 @@ const DataGraphs = () => {
             }
         */
 
-        for (let i = 0; i < rawData.maxLength; i++) {
+        for (let i = 0; i < 1; i++) {
             dat.push([]);
         }
 
         for (let i = 0; i < rawData.dataList.length; i++) {
-            for (let j = 0; j < rawData.dataList[i].data.length && j < rawData.maxLength; j++) {
+            for (let j = 0; j < rawData.dataList[i].data.length; j++) {
                 dat[j].push(rawData.dataList[i].data[j]);
             }
-            lines.push(<Line type="monotone" key={i.toString()} dataKey={rawData.dataList[i].name} stroke={worseIdea[i]} />); //replace worseIdea
+            lines.push(<Bar key={i.toString()} dataKey={rawData.dataList[i].name} fill={worseIdea[i]} />); //replace worseIdea
         }
 
         /*
@@ -281,37 +353,21 @@ const DataGraphs = () => {
             ]
         */
 
-        let jsonStr = "[";
+        let jsonStr = "[{";
 
-        for (let i = 0; i < dat.length; i++) {
-            jsonStr += `{
-                "xAxis": ${ i },
-                `;
+        console.log(dat);
 
-            for(let j = 0; j < dat[i].length; j++) {
-                if (j === dat[i].length - 1) {
-                    jsonStr += `"${rawData.dataList[j].name}": ${dat[i][j]}
-                    `;
-                    break;
-                }
+        jsonStr += `"xAxis": "data", `;
 
-                jsonStr += `"${rawData.dataList[j].name}": ${dat[i][j]},
-                `;
-            }
-
-            if (i === dat.length - 1) {
-                jsonStr += "}";
-                break;
-            }
-
-            jsonStr += "}, ";
+        for (let i = 0; i < dat[0].length; i++) {
+            jsonStr += `"${rawData.dataList[i].name}": ${dat[0][i]} ${ (i === dat[0].length -1) ? " " : ", " } `;
         }
 
-        jsonStr += "]";
+        jsonStr += "}]";
 
         console.log(jsonStr);
 
-        setLines(lines);
+        setBars(lines);
 
         setData(JSON.parse(jsonStr));
 
@@ -328,25 +384,39 @@ const DataGraphs = () => {
         }
     }
 
+    const selectAllTeams = () => {
+        setAllTeams(!allTeams);
+    }
+
     let testData = JSON.parse(`{"maxLength": 9, "dataList": [ { "name": "a", "data": [12, 11, 10, 9, 5, 12, 2, 1, 2] }, { "name": "b", "data": [10, 12, 9, 8, 4, 5, 12, 2, 11] } ] }`);
 
     return (
         <div className={classes.root}>
             <BackButton title={'Home'} lastPage={'/'} />
             <div className={classes.mainContent}>
-                <LineChart width={730} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                {/*<LineChart width={730} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="5 3" />
                     <XAxis dataKey="xAxis" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
                     {lines}
-                </LineChart>
+                </LineChart>*/}
+
+                <BarChart width={730} height={250} data={data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                    <XAxis dataKey="xAxis"/>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <YAxis/>
+                    <Tooltip/>
+                    <Legend/>
+                    {bars}
+                </BarChart>
 
                 <div className={classes.options}>
-                    <Button title="Apply to Graph" className={classes.buttonMain} onClick={ e => updateGraph() }>generate</Button>
+                    <Button title="Apply to Graph" className={classes.buttonMain} onClick={ e => updateBarGraph() }>generate</Button>
+                    <Button title="Select All Teams" className={classes.buttonMain} onClick={ e => selectAllTeams() }>toggle all teams</Button>
                     <Select options={selectConfig} isMulti={ true } isSearchable={ true } onChange={ e => { updateConfig(e) }}/>
-                    <Select options={teamSelect} isMulti={ true } isSearchable={ true } onChange={e => { updateTeams(e) }} />
+                    <Select isDisabled={allTeams} options={teamSelect} isMulti={ true } isSearchable={ true } onChange={e => { updateTeams(e) }} />
                 </div>
             </div>
         </div>
