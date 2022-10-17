@@ -49,6 +49,7 @@ const useStyles = makeStyles(theme => ({
     },
     mainContent: {
         width: '100vw',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

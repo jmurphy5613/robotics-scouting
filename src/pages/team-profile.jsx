@@ -64,7 +64,7 @@ const TeamProfile = () => {
             };
             let currentAuto = {
                 "Match Number": element.matchId,
-                "High Goal Auto": element.highGoalx,
+                "High Goal Auto": element.highGoalAuto,
                 "Low Goal Auto": element.lowGoalAuto,
                 "Taxi": element.taxi
             }

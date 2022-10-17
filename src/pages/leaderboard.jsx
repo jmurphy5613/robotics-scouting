@@ -46,6 +46,7 @@ const Leaderboard = () => {
 
     useEffect(() => {
         let teams =  JSON.parse(localStorage.getItem('teamList'));
+        if(!teams) return;
         teams.forEach(element => {
             let teamData = JSON.parse(localStorage.getItem(`${element}`));
             let gamesPlayed = teamData.length;
@@ -60,7 +61,7 @@ const Leaderboard = () => {
 
             teamData.forEach(game => {
                 teamId = game.teamId;
-                HighGoalAutoTotal += game.highGoalx;
+                HighGoalAutoTotal += game.highGoalAuto;
                 LowGoalAutoTotal += game.lowGoalAuto;
                 HighGoalTeleopTotal += game.highGoalOperated;
                 LowGoalTeleopTotal += game.lowGoalOperated;
