@@ -1,7 +1,21 @@
 import { Button } from '@material-ui/core';
 //import { downloa}
 
+const useStyles = makeStyles(theme => ({
+    fetchButton: {
+        textTransform: 'none',
+        backgroundColor: '#ffffff',
+        color: '#000000',
+        '&:hover': {
+            backgroundColor: '#E879F9',
+            color: '#ffffff'
+        }
+    }
+}))
+
 const DownloadButton = (props) => {
+
+    const classes = useStyles();
 
     const getDat = () => {
         let j = JSON.parse(localStorage.getItem("teamList"));
@@ -85,7 +99,7 @@ csv += `${j[i]}, , ${avgLGA}, ${avgHGA}, ${avgLGO}, ${avgHGO}, ${avgRung}, ${ove
     }
 
     return (
-        <Button title='Download JSON as CSV' onClick={ e => { download() }}/>
+        <Button title='Download as CSV' className={classes.fetchButton} onClick={ e => { download() }}>Download as CSV</Button>
     )
 
 }
