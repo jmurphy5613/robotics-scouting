@@ -6,6 +6,7 @@ import ClearStorage from "../components/clearstorage";
 import TeamGrid from "../components/team-grid";
 import LeaderboardButton from "../components/leaderboardbutton";
 import DataFetchButton from "../components/data-fetch-button";
+import DownloadButton from "../components/downloadcsv";
 
 
 const useStyles = makeStyles(theme => ({
@@ -71,6 +72,7 @@ const CentralComputer = () => {
             <BackButton title={'Home'} lastPage={'/'} />
             <div className={classes.buttons}>
                 <LeaderboardButton />
+                <DownloadButton />
                 <ClearStorage />
                 <QrCodePopup qrData={qrData} setQrData={setQrData} />
                 <DataFetchButton />
