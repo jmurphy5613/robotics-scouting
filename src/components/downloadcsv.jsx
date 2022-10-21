@@ -74,12 +74,14 @@ AVERAGED DATA
 
             }
 
-            overall = (avgHGA * 4) + (avgLGA * 2) + (avgLGO) + (avgHGO * 2) + avgRung * 5;
+            overall = (avgHGA * 4) + (avgLGA * 2) + (avgLGO) + (avgHGO * 2) + avgRung;
+
+            overall = overall / team.length;
 
             avgLGA  = avgLGA / team.length;
             avgHGA  = avgHGA / team.length; 
-            avgLGO  = avgLGO / team.length;
-            avgHGO  = avgHGO / team.length;
+            avgLGO  = avgLGO / team.length; 
+            avgHGO  = avgHGO / team.length; 
             avgRung = avgRung / team.length;
 
 csv += `${j[i]}, , ${avgLGA}, ${avgHGA}, ${avgLGO}, ${avgHGO}, ${avgRung}, ${overall}, ${trav}
