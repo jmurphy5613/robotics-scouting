@@ -25,13 +25,28 @@ const TeamGrid = (props) => {
         if(localStorage.getItem('teamList') != null) {
             teamList = JSON.parse(localStorage.getItem('teamList'));
         }
+
         setTeams(teamList);
     }, []);
+
+    const filteredTeams = () => {
+        let filteredList = []
+
+        console.log(props.searchField, teams)
+
+        for(let i = 0; i < teams.length; i++) {
+            if(String(teams[i]).includes(props.searchField)) {
+                filteredList.push(teams[i])
+            }
+        }
+        console.log(filteredList)
+        return filteredList;
+    }
 
 
     return (
         <div className={classes.teamGrid}>
-            {teams.map(team => {
+            {filteredTeams().map(team => {
                 return <TeamGridItem key={team.id} team={team} />
             })}
         </div>

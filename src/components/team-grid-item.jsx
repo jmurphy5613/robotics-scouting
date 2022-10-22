@@ -6,17 +6,19 @@ import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     gridItem: {
-        height: '10vh',
-        backgroundColor: '#696969',
+        height: '15vh',
+        backgroundColor: '#1c1f31',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: '1rem',
         transition: 'transform 0.25s ease-out',
+        border: '1px solid #3750a8',
         '&:hover': {
             cursor: 'pointer',
-            transform: 'scale(1.05)'
+            transform: 'scale(1.02)',
+            border: '1px solid #E879F9'
         }
     },
     teamTitle: {

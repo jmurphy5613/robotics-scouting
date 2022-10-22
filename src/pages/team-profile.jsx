@@ -60,7 +60,7 @@ const TeamProfile = () => {
                 "Match Number": element.matchId, 
                 "High Goal Teleop": element.highGoalOperated,
                 "Low Goal Teleop": element.lowGoalOperated,
-                "Rung Climbed To": getRungFromPoints(element.rungClimedTo),
+                "Rung Climbed To": getRungFromPoints(element.rungClimbedTo),
             };
             let currentAuto = {
                 "Match Number": element.matchId,

@@ -5,7 +5,7 @@ import '../fonts.css';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#0f172a'
+            main: 'rgb(18, 19, 30)'
         },
         secondary: {
             main: '#E879F9',

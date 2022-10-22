@@ -8,10 +8,11 @@ import '../fonts.css';
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100vw',
-        height: '100vh',
+        minHeight: '100vh',
         backgroundColor: theme.palette.primary.main,
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         flexDirection: 'column'
     },
     teamOverviewTitle: {
@@ -65,6 +66,7 @@ const Leaderboard = () => {
                 LowGoalAutoTotal += game.lowGoalAuto;
                 HighGoalTeleopTotal += game.highGoalOperated;
                 LowGoalTeleopTotal += game.lowGoalOperated;
+                ClimberPointsTotal += game.rungClimbedTo;
             })
             let teamJSON = {
                 "Team Number": teamId,
@@ -84,9 +86,9 @@ const Leaderboard = () => {
     return (
         <div className={classes.root}>
             <BackButton lastPage="/#/central-computer" title="Team List" />
-            <Typography variant="h2" className={classes.teamOverviewTitle}>
+            {/* <Typography variant="h2" className={classes.teamOverviewTitle}>
                 Team Overview
-            </Typography>
+            </Typography> */}
             <div className="ag-theme-alpine-dark" style={{height: 600, width: 1200 }}>
                 {console.log(rowValues)}
                 {console.log(columnDefs)}

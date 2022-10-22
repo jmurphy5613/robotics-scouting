@@ -43,6 +43,9 @@ const DataFetchButton = (props) => {
                 }
                 else {
                     let oldData = JSON.parse(localStorage.getItem(name));
+                    for(const teamMatch of oldData) {
+                        if(teamMatch.teamId === game.teamId && teamMatch.matchId === game.matchId) return;
+                    }
                     oldData.push(game);
                     localStorage.setItem(name, JSON.stringify(oldData));
                 }
