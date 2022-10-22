@@ -10,7 +10,8 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             backgroundColor: '#E879F9',
             color: '#ffffff'
-        }
+        },
+        fontFamily: 'medium'
     }
 }))
 
@@ -102,7 +103,7 @@ csv += `${j[i]}, , ${avgLGA}, ${avgHGA}, ${avgLGO}, ${avgHGO}, ${avgRung}, ${ove
     }
 
     return (
-        <Button title='Download as CSV' className={classes.fetchButton} onClick={ e => { download() }}>Download as CSV</Button>
+        <Button className={classes.fetchButton} onClick={ e => { download() }}>Download as CSV</Button>
     )
 
 }
