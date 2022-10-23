@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
         bottom: '3rem',
         left: '50%',
         transform: 'translateX(-50%)',
-        width: '45vw',
+        width: '56vw',
         display: 'flex',
         justifyContent: 'space-between'
     }

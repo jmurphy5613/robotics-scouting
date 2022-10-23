@@ -94,7 +94,8 @@ const DataGraphs = () => {
         { value: "lowGoalAuto", label: "Low Goal Auto" },
         { value: "highGoalOperated", label: "High Goal" },
         { value: "lowGoalOperated", label: "Low Goal" },
-        { value: "rungClimedTo", label: "Rung Climed To" }
+        { value: "rungClimedTo", label: "Rung Climed To" },
+        { value: "teamScore", label: "General Team Score"}
     ]
 
     //let teamSelect = [ ]; //gets loaded later in use effect
@@ -161,6 +162,39 @@ const DataGraphs = () => {
             console.log(allTeams);
             if (allTeams) {
 
+                if (configList[i] == "teamScore") {
+
+                    console.log("entering confList exception");
+
+                    for (let k = 0; k < teamSelect.length; k++) {
+                        let team = JSON.parse(localStorage.getItem(teamSelect[k].value));
+
+                        console.log(team);
+
+                        let teamScore = 0;
+
+                        if (team === null) continue;
+
+                        for (let m = 0; m < team.length; m++) {
+                            teamScore += (team[m].highGoalAuto * 4) + (team[m].lowGoalAuto * 2) + (team[m].highGoalOperated * 2) + (team[m].lowGoalOperated) + ( (team[m].rungClimedTo === null || team[m].rungClimedTo === undefined) ? team[m].rungClimbedTo : team[m].rungClimedTo );
+                        }
+
+                        teamScore = teamScore / team.length;
+
+                        jsonData += `{
+                            "name": "${teamSelect[k].value} - Team Score",
+                            "data": [${teamScore}]
+                        }${ (k === teamSelect.length - 1 && i === configList.length - 1) ? "" : ", " }`;
+                    }
+
+                    continue;
+
+                    console.log("this should never be printed");
+
+                }
+
+                console.log("woah");
+
                 for (let k = 0; k < teamSelect.length; k++) {
                     let team = JSON.parse(localStorage.getItem(teamSelect[k].value));
                     console.log(team);
@@ -183,6 +217,37 @@ const DataGraphs = () => {
                 }
 
                 continue;
+            }
+
+            if (configList[i] == "teamScore") {
+
+                console.log("entering confList exception");
+
+                for (let k = 0; k < teamList.length; k++) {
+                    let team = JSON.parse(localStorage.getItem(teamList[k]));
+
+                    console.log(team);
+
+                    let teamScore = 0;
+
+                    if (team === null) continue;
+
+                    for (let m = 0; m < team.length; m++) {
+                        teamScore += (team[m].highGoalAuto * 4) + (team[m].lowGoalAuto * 2) + (team[m].highGoalOperated * 2) + (team[m].lowGoalOperated) + ( (team[m].rungClimedTo === null || team[m].rungClimedTo === undefined) ? team[m].rungClimbedTo : team[m].rungClimedTo );
+                    }
+
+                    teamScore = teamScore / team.length;
+
+                    jsonData += `{
+                        "name": "${teamList[k]} - Team Score",
+                        "data": [${teamScore}]
+                    }${ (k === teamList.length - 1 && i === configList.length - 1) ? "" : ", " }`;
+                }
+
+                continue;
+
+                console.log("this should never be printed");
+
             }
 
             for(let k = 0; k < teamList.length; k++) {
@@ -285,14 +350,20 @@ const DataGraphs = () => {
         const worseIdea = [
             "#f00",
             "#0f0",
+            "#f09",
+            "#4a7",
+            "#562",
+            "#540",
             "#00f",
             "#f0f",
             "#f40",
             "#0ff",
-            "#fff",
-            "#000",
+            "#bbb",
+            "#666",
             "#ccc",
             "#cac",
+            "#4a4",
+            "#5fa",
             "#fac",
             "#caf",
             "#faf",
